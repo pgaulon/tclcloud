@@ -6,6 +6,7 @@
 package provide tclcloud 1.0.3
 
 package require Tcl 8.5
+package require sha1
 package require sha256
 package require base64
 package require uri
@@ -30,7 +31,15 @@ namespace eval tclcloud {
 	dict set AWS_address emr eu-west-1 address elasticmapreduce.eu-west-1.amazonaws.com
 	dict set AWS_address emr ap-southeast-1 address elasticmapreduce.ap-southeast-1.amazonaws.com
 	dict set AWS_address emr ap-northeast-1 address elasticmapreduce.ap-northeast-1.amazonaws.com
+	dict set AWS_address emr sa-east-1 address elasticmapreduce.sa-east-1.amazonaws.com
 	dict set AWS_address s3 default address s3.amazonaws.com
+	dict set AWS_address s3 us-east-1 address s3-us-east-1.amazonaws.com
+	dict set AWS_address s3 us-west-1 address s3-us-west-1.amazonaws.com
+	dict set AWS_address s3 us-west-2 address s3-us-west-2.amazonaws.com
+	dict set AWS_address s3 eu-west-1 address s3-external-3.amazonaws.com
+	dict set AWS_address s3 ap-southeast-1 address s3-ap-southeast-1.amazonaws.com
+	dict set AWS_address s3 ap-northeast-1 address s3-ap-northeast-1.amazonaws.com
+	dict set AWS_address s3 sa-east-1 address s3-sa-east-1.amazonaws.com
 	dict set AWS_address ses default address email.us-east-1.amazonaws.com
 	dict set AWS_address ses us-east-1 address email.us-east-1.amazonaws.com
 	dict set AWS_address rds default address rds.amazonaws.com
@@ -40,6 +49,7 @@ namespace eval tclcloud {
 	dict set AWS_address rds eu-west-1 address rds.eu-west-1.amazonaws.com
 	dict set AWS_address rds ap-southeast-1 address rds.ap-southeast-1.amazonaws.com
 	dict set AWS_address rds ap-northeast-1 address rds.ap-northeast-1.amazonaws.com
+	dict set AWS_address rds sa-east-1 address rds.sa-east-1.amazonaws.com
 	dict set AWS_address as default address autoscaling.amazonaws.com
 	dict set AWS_address as us-east-1 address autoscaling.us-east-1.amazonaws.com
 	dict set AWS_address as us-west-1 address autoscaling.us-west-1.amazonaws.com
@@ -47,6 +57,7 @@ namespace eval tclcloud {
 	dict set AWS_address as eu-west-1 address autoscaling.eu-west-1.amazonaws.com
 	dict set AWS_address as ap-southeast-1 address autoscaling.ap-southeast-1.amazonaws.com
 	dict set AWS_address as ap-northeast-1 address autoscaling.ap-northeast-1.amazonaws.com
+	dict set AWS_address as sa-east-1 address autoscaling.sa-east-1.amazonaws.com
 	dict set AWS_address sqs default address sqs.us-east-1.amazonaws.com
 	dict set AWS_address sqs us-east-1 address sqs.us-east-1.amazonaws.com
 	dict set AWS_address sqs us-west-1 address sqs.us-west-1.amazonaws.com
@@ -54,6 +65,7 @@ namespace eval tclcloud {
 	dict set AWS_address sqs eu-west-1 address sqs.eu-west-1.amazonaws.com
 	dict set AWS_address sqs ap-southeast-1 address sqs.ap-southeast-1.amazonaws.com
 	dict set AWS_address sqs ap-northeast-1 address sqs.ap-northeast-1.amazonaws.com
+	dict set AWS_address sqs sa-east-1 address sqs.sa-east-1.amazonaws.com
 	dict set AWS_address cw default address monitoring.us-east-1.amazonaws.com
 	dict set AWS_address cw us-east-1 address monitoring.us-east-1.amazonaws.com
 	dict set AWS_address cw us-west-1 address monitoring.us-west-1.amazonaws.com
@@ -61,6 +73,7 @@ namespace eval tclcloud {
 	dict set AWS_address cw eu-west-1 address monitoring.eu-west-1.amazonaws.com
 	dict set AWS_address cw ap-southeast-1 address monitoring.ap-southeast-1.amazonaws.com
 	dict set AWS_address cw ap-northeast-1 address monitoring.ap-northeast-1.amazonaws.com
+	dict set AWS_address cw sa-east-1 address monitoring.sa-east-1.amazonaws.com
 	dict set AWS_address elb default address elasticloadbalancing.amazonaws.com
 	dict set AWS_address elb us-east-1 address elasticloadbalancing.us-east-1.amazonaws.com
 	dict set AWS_address elb us-west-1 address elasticloadbalancing.us-west-1.amazonaws.com
@@ -68,6 +81,7 @@ namespace eval tclcloud {
 	dict set AWS_address elb eu-west-1 address elasticloadbalancing.eu-west-1.amazonaws.com
 	dict set AWS_address elb ap-southeast-1 address elasticloadbalancing.ap-southeast-1.amazonaws.com
 	dict set AWS_address elb ap-northeast-1 address elasticloadbalancing.ap-northeast-1.amazonaws.com
+	dict set AWS_address elb sa-east-1 address elasticloadbalancing.sa-east-1.amazonaws.com
 	dict set AWS_address vpc default address ec2.amazonaws.com
 	dict set AWS_address vpc us-east-1 address ec2.us-east-1.amazonaws.com
 	dict set AWS_address vpc us-west-1 address ec2.us-west-1.amazonaws.com
@@ -75,6 +89,7 @@ namespace eval tclcloud {
 	dict set AWS_address vpc eu-west-1 address ec2.eu-west-1.amazonaws.com
 	dict set AWS_address vpc ap-southeast-1 address ec2.ap-southeast-1.amazonaws.com
 	dict set AWS_address vpc ap-northeast-1 address ec2.ap-northeast-1.amazonaws.com
+	dict set AWS_address vpc sa-east-1 address ec2.sa-east-1.amazonaws.com
 	dict set AWS_address iam default address iam.amazonaws.com
 	dict set AWS_address cfn default address cloudformation.us-east-1.amazonaws.com
 	dict set AWS_address cfn us-east-1 address cloudformation.us-east-1.amazonaws.com
@@ -83,6 +98,7 @@ namespace eval tclcloud {
 	dict set AWS_address cfn eu-west-1 address cloudformation.eu-west-1.amazonaws.com
 	dict set AWS_address cfn ap-southeast-1 address cloudformation.ap-southeast-1.amazonaws.com
 	dict set AWS_address cfn ap-northeast-1 address cloudformation.ap-northeast-1.amazonaws.com
+	dict set AWS_address cfn sa-east-1 address cloudformation.sa-east-1.amazonaws.com
 	dict set AWS_address sdb default address sdb.amazonaws.com
 	dict set AWS_address sdb us-east-1 address sdb.amazonaws.com
 	dict set AWS_address sdb us-west-1 address sdb.us-west-1.amazonaws.com
@@ -90,6 +106,7 @@ namespace eval tclcloud {
 	dict set AWS_address sdb eu-west-1 address sdb.eu-west-1.amazonaws.com
 	dict set AWS_address sdb ap-southeast-1 address sdb.ap-southeast-1.amazonaws.com
 	dict set AWS_address sdb ap-northeast-1 address sdb.ap-northeast-1.amazonaws.com
+	dict set AWS_address sdb sa-east-1 address sdb.sa-east-1.amazonaws.com
 	dict set AWS_address r53 default address r53.amazonaws.com
 	dict set AWS_address ebs default address elasticbeanstalk.us-east-1.amazonaws.com 
 	dict set AWS_address ebs us-east-1 address elasticbeanstalk.us-east-1.amazonaws.com 
@@ -101,6 +118,7 @@ namespace eval tclcloud {
 	dict set AWS_address sns eu-west-1 address sns.eu-west-1.amazonaws.com
 	dict set AWS_address sns ap-southeast-1 address sns.ap-southeast-1.amazonaws.com
 	dict set AWS_address sns ap-northeast-1 address sns.ap-northeast-1.amazonaws.com
+	dict set AWS_address sns sa-east-1 address sns.sa-east-1.amazonaws.com
 	dict set AWS_address ec2 default address ec2.amazonaws.com
 	dict set AWS_address ec2 us-east-1 address ec2.us-east-1.amazonaws.com
 	dict set AWS_address ec2 us-west-1 address ec2.us-west-1.amazonaws.com
@@ -109,8 +127,9 @@ namespace eval tclcloud {
 	dict set AWS_address ec2 eu-west-1 address ec2.eu-west-1.amazonaws.com
 	dict set AWS_address ec2 ap-southeast-1 address ec2.ap-southeast-1.amazonaws.com
 	dict set AWS_address ec2 ap-northeast-1 address ec2.ap-northeast-1.amazonaws.com
+	dict set AWS_address ec2 sa-east-1 address ec2.sa-east-1.amazonaws.com
 	dict set AWS_product emr version default 2009-03-31
-	dict set AWS_product ec2 version default 2011-07-15
+	dict set AWS_product ec2 version default 2011-01-01
 	dict set AWS_product sns version default 2010-03-31
 	dict set AWS_product cfn version default 2010-05-15
 	dict set AWS_product as version default 2010-08-01
@@ -180,9 +199,9 @@ proc tclcloud::Encode_url {orig} {
     }
     return $res
 }
-proc tclcloud::Sign_string {string_to_sign} {
+proc tclcloud::Sign_string {string_to_sign {algorithm sha2}} {
 	variable AWS_info
-	set signed [::sha2::hmac  [dict get $AWS_info secret_key] $string_to_sign]
+	set signed [::${algorithm}::hmac  [dict get $AWS_info secret_key] $string_to_sign]
 	set signed [binary format H* $signed]
 	set signed [string trim [::base64::encode $signed]]
 	return $signed
@@ -230,7 +249,7 @@ proc tclcloud::Build_string_to_sign {aws_address querystring} {
 
 }
 
-proc tclcloud::Build_querystring {product action params version} {
+proc tclcloud::Build_querystring {product action params extra} {
 
 	variable AWS_info
 	### according to the AWS api docs, the string to sign must be byte order by param name
@@ -245,8 +264,8 @@ proc tclcloud::Build_querystring {product action params version} {
 		set values(AWSAccessKeyId) [dict get $AWS_info a_key]
 		set values(SignatureMethod) HmacSHA256
 		set values(SignatureVersion) 2
-		if {"$version" ne ""} {
-			set values(Version) $version
+		if {"$extra" ne ""} {
+			set values(Version) $extra
 		} else {
 			set values(Version) [tclcloud::Get_version $product]
 		}
@@ -274,23 +293,32 @@ proc tclcloud::Build_querystring {product action params version} {
 proc tclcloud::HttpCallback {token} {
     upvar #0 $token state
 }
-proc tclcloud::Build_url {product address querystring signature action} {
+proc tclcloud::Build_url {product address querystring signature action {path ""}} {
 	variable AWS_protocol
 	if {"$product" eq "ses"} {
 		return "$AWS_protocol://$address/?$querystring"
 	} elseif {"$product" eq "r53"} {
 		return "$AWS_protocol://$address/$action"
+	} elseif {"$product" eq "s3"} {
+		return "$AWS_protocol://$address/$path"
 	} else {
 		return "$AWS_protocol://$address/?$querystring&Signature=$signature"
 	}
 }
-proc tclcloud::Perform_query {url header} {
+proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype application/octet-stream} {timeout 10}} {
 	variable debug
 	set err_buf ""
 	set head_buf ""
 	set body_buf ""
 	set err_msg ""
-	catch {set token [::http::geturl $url -headers $header -timeout [expr {10 * 1000}]]} error_code
+	set cmd [list ::http::geturl $url -headers $header -method $method]
+	if {$timeout != 0} {
+		lappend cmd -timeout [expr {$timeout * 1000}] 
+	}
+	if {$data != ""} {
+		lappend cmd -type $contenttype -query $data
+	}
+	catch {set token [eval $cmd]} error_code
 	if {[string match "::http::*" $error_code] == 0} {
 		if {[string match "error reading*software caused connection abort" $error_code]} {
 			error "error: Cloud endpoint refused connection. Verfiy that address, port and protocol (http or https) are valid.\012url:\012\012$url"
@@ -298,7 +326,8 @@ proc tclcloud::Perform_query {url header} {
 			error "error: $error_code\012url:\012\012$url"
 		}
 	}
-	if {"[::http::status $token]" ne "ok" || [::http::ncode $token] != 200} {
+	# 204 is needed for S3 DELETE operation
+	if {"[::http::status $token]" ne "ok" || (([::http::ncode $token] != 200) && ([::http::ncode $token] != 204))} {
 		error "error: [::http::status $token] [::http::code $token] [::http::data $token]\012url:\012\012$url"
 	} else {
 		set body [::http::data $token]
@@ -312,7 +341,7 @@ proc tclcloud::Perform_query {url header} {
 	}
 	return $body
 }
-proc tclcloud::call {product region action params {version ""}} {
+proc tclcloud::call {product region action params {extra ""} {extradatatype "application/octet-stream"}} {
 
 	variable AWS_products
 	variable AWS_info
@@ -320,12 +349,37 @@ proc tclcloud::call {product region action params {version ""}} {
 		error "error: product value is required"
 	}
 	set aws_address [tclcloud::Get_address $product $region]
-	set querystring [tclcloud::Build_querystring $product $action $params $version]
+	set querystring [tclcloud::Build_querystring $product $action $params $extra]
+	set method GET
+	set httpdata ""
+	set urlpath ""
+	set contenttype "application/x-www-form-urlencoded"
+	set httptimeout 10
+
 	if {"$product" eq "s3"} {
-		set signature [tclcloud::Sign_string "GET\n\n\n$timestamp\n\n/"]
+		set method $action
+		set params [split [string trimleft $params /] /]
+		set bucket [lindex $params 0]
+		set urlpath [join [lrange $params 1 end] /]
+		if {$method == "PUT"} {
+			set contenttype $extradatatype
+			set signaturetype $contenttype
+			set httpdata $extra
+		}  else  {
+			set signaturetype ""
+		}
+		if {($method != "DELETE") && ($method != "HEAD")} {
+			set httptimeout 0
+		}
 		set header ""
+		set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
+		lappend header "Date" $date_header
+		set signature "$method\n\n${signaturetype}\n$date_header\n/$bucket/$urlpath"
+		set signature [tclcloud::Sign_string $signature sha1]
+		lappend header "Authorization" "AWS [dict get $AWS_info a_key]:$signature"
+		set aws_address "$bucket.$aws_address"
 	} elseif {"$product" eq "r53"} {
-		set date_header [clock format [clock seconds] -format "%a, %e %b %Y %H:%M:%S +0000"]
+		set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
 		lappend header "Date: $date_header"
 		set signature [tclcloud::Sign_string $date_header]
 		set xamzn_header "AWS3-HTTPS AWSAccessKeyId=[dict get $AWS_info a_key],Algorithm=HmacSHA256,Signature=$signature"
@@ -343,7 +397,7 @@ proc tclcloud::call {product region action params {version ""}} {
 		lappend header "Date: $date_header"
 		lappend header "User-Agent: Tclcloud lib"
 	}
-	set url [tclcloud::Build_url $product $aws_address $querystring $signature $action]
-	set results [tclcloud::Perform_query $url $header]
+	set url [tclcloud::Build_url $product $aws_address $querystring $signature $action $urlpath]
+	set results [tclcloud::Perform_query $url $header $method $httpdata $contenttype $httptimeout]
 	return $results
 }
