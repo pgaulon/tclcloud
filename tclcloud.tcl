@@ -305,7 +305,7 @@ proc tclcloud::Build_url {product address querystring signature action {path ""}
 		return "$AWS_protocol://$address/?$querystring&Signature=$signature"
 	}
 }
-proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype application/octet-stream} {timeout 10}} {
+proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype application/octet-stream} {timeout 180}} {
 	variable debug
 	set err_buf ""
 	set head_buf ""
@@ -318,24 +318,40 @@ proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype app
 	if {$data != ""} {
 		lappend cmd -type $contenttype -query $data
 	}
-	catch {set token [eval $cmd]} error_code
-	if {[string match "::http::*" $error_code] == 0} {
-		if {[string match "error reading*software caused connection abort" $error_code]} {
-			error "error: Cloud endpoint refused connection. Verfiy that address, port and protocol (http or https) are valid.\012url:\012\012$url"
-		} else {
-			error "error: $error_code\012url:\012\012$url"
-		}
-	}
-	# 204 is needed for S3 DELETE operation
-	if {"[::http::status $token]" ne "ok" || (([::http::ncode $token] != 200) && ([::http::ncode $token] != 204))} {
-		error "error: [::http::status $token] [::http::code $token] [::http::data $token]\012url:\012\012$url"
-	} else {
-		set body [::http::data $token]
-	}
-
-        if {[info exists token] == 1} {
-                ::http::cleanup $token
+    set max_retries 4
+    set retries 0
+    set sleep_ms 0
+    # if service is unavailable, we will do retries with exponential backoff
+    # see http://aws.amazon.com/articles/1394
+    while {$retries <= $max_retries} {
+        after $sleep_ms
+        catch {set token [eval $cmd]} error_code
+        if {[string match "::http::*" $error_code] == 0} {
+            if {[string match "error reading*software caused connection abort" $error_code]} {
+                error "error: Cloud endpoint refused connection. Verfiy that address, port and protocol (http or https) are valid.\012url:\012\012$url"
+            } else {
+                error "error: $error_code\012url:\012\012$url"
+            }
         }
+        set http_code [::http::ncode $token]
+        if {$http_code == 503 && ($retries <= $max_retries)} {
+            if {$debug == 1} {
+                puts "Service Unavailable - $error_code"
+            }
+            set sleep_ms [expr int(rand() * pow(4,$retries) * 100)]
+            incr retries 
+        } elseif {"[::http::status $token]" ne "ok" || (($http_code != 200) && ($http_code != 204))} {
+            # 204 is needed for S3 DELETE operation
+            error "error: [::http::status $token] [::http::code $token] [::http::data $token]\012url:\012\012$url"
+        } else {
+            set body [::http::data $token]
+            # break out of loop next time around
+            set retries [expr $max_retries + 1]
+        }
+        if {[info exists token] == 1} {
+            ::http::cleanup $token
+        }
+    }
 	if {$debug == 1} {
 		puts "Return Body:\n$body"
 	}
@@ -354,7 +370,7 @@ proc tclcloud::call {product region action params {extra ""} {extradatatype "app
 	set httpdata ""
 	set urlpath ""
 	set contenttype "application/x-www-form-urlencoded"
-	set httptimeout 10
+	set httptimeout 180
 
 	if {"$product" eq "s3"} {
 		set method $action
