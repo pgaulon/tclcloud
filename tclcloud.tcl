@@ -190,10 +190,10 @@ proc tclcloud::Encode_url {orig} {
         append res $ch
     } else {
         foreach uch [split [encoding convertto utf-8 $ch] ""] {
-        append res "%"
-        binary scan $uch H2 hex
-        set hex [string toupper $hex]
-        append res $hex
+            append res "%"
+            binary scan $uch H2 hex
+            set hex [string toupper $hex]
+            append res $hex
         }
     }
     }
@@ -231,7 +231,11 @@ proc tclcloud::Build_string_to_sign {aws_address querystring} {
     set found -1
     foreach {key val} $uri_list {
         if {"$key" eq "path" && "$val" ne ""} {
-            set path "/$val/"
+            if {[string index $val end] eq "/"} {
+                set path "/$val"
+            } else {
+                set path "/$val/"
+            }
             incr found
         } elseif {"$key" eq "host"} {
             set aws_address $val
