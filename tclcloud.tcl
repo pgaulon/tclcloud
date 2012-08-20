@@ -253,7 +253,7 @@ proc tclcloud::Build_string_to_sign {aws_address querystring} {
 
 }
 
-proc tclcloud::Build_querystring {product action params extra} {
+proc tclcloud::Build_querystring {product action params apiversion} {
 
     variable AWS_info
     ### according to the AWS api docs, the string to sign must be byte order by param name
@@ -268,8 +268,8 @@ proc tclcloud::Build_querystring {product action params extra} {
         set values(AWSAccessKeyId) [dict get $AWS_info a_key]
         set values(SignatureMethod) HmacSHA256
         set values(SignatureVersion) 2
-        if {"$extra" ne ""} {
-            set values(Version) $extra
+        if {"$apiversion" ne ""} {
+            set values(Version) $apiversion
         } else {
             set values(Version) [tclcloud::Get_version $product]
         }
@@ -361,7 +361,7 @@ proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype app
     }
     return $body
 }
-proc tclcloud::call {product region action params {extra ""} {extradatatype "application/octet-stream"}} {
+proc tclcloud::call {product region action params {extra ""} {extradatatype "application/octet-stream"} {apiversion ""}} {
 
     variable AWS_products
     variable AWS_info
@@ -369,7 +369,7 @@ proc tclcloud::call {product region action params {extra ""} {extradatatype "app
         error "error: product value is required"
     }
     set aws_address [tclcloud::Get_address $product $region]
-    set querystring [tclcloud::Build_querystring $product $action $params $extra]
+    set querystring [tclcloud::Build_querystring $product $action $params $apiversion]
     set method GET
     set httpdata ""
     set urlpath ""
