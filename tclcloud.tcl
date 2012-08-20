@@ -319,7 +319,7 @@ proc tclcloud::Perform_query {url header {method GET} {data ""} {contenttype app
     if {$timeout != 0} {
         lappend cmd -timeout [expr {$timeout * 1000}] 
     }
-    if {$data != ""} {
+    if {($method == "POST") || ($method == "PUT")} {
         lappend cmd -type $contenttype -query $data
     }
     set max_retries 4
@@ -398,6 +398,9 @@ proc tclcloud::call {product region action params {extra ""} {extradatatype "app
         set signature [tclcloud::Sign_string $signature sha1]
         lappend header "Authorization" "AWS [dict get $AWS_info a_key]:$signature"
         set aws_address "$bucket.$aws_address"
+        if {($method == "GET") && ($extra != "")} {
+            set urlpath "$urlpath?[http::formatQuery {*}$extra]"
+        }
     } elseif {"$product" eq "r53"} {
         set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
         lappend header "Date: $date_header"
