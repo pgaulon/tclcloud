@@ -405,16 +405,16 @@ proc tclcloud::call {product region action params {extra ""} {extradatatype "app
         }
     } elseif {"$product" eq "r53"} {
         set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
-        lappend header "Date: $date_header"
+        lappend header "Date" $date_header
         set signature [tclcloud::Sign_string $date_header]
         set xamzn_header "AWS3-HTTPS AWSAccessKeyId=[dict get $AWS_info a_key],Algorithm=HmacSHA256,Signature=$signature"
-        lappend header "X-Amzn-Authorization: $xamzn_header"
+        lappend header "X-Amzn-Authorization" $xamzn_header
     } elseif {"$product" eq "ses"} {
         set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
-        lappend header "Date: $date_header"
+        lappend header "Date" $date_header
         set signature [tclcloud::Sign_string $date_header]
         set xamzn_header "AWS3-HTTPS AWSAccessKeyId=[dict get $AWS_info a_key],Algorithm=HmacSHA256,Signature=$signature"
-        lappend header "X-Amzn-Authorization: $xamzn_header"
+        lappend header "X-Amzn-Authorization" $xamzn_header
     } elseif {"$product" eq "sqs"} {
         if {[dict exists $params OwnerId] && [dict exists $params QueueName]} {
             append aws_address "/[dict get $params OwnerId]/[dict get $params QueueName]"
@@ -426,14 +426,14 @@ proc tclcloud::call {product region action params {extra ""} {extradatatype "app
         set signature [tclcloud::Encode_url [tclcloud::Sign_string [tclcloud::Build_string_to_sign $aws_address $querystring]]]
         set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
         set header ""
-        lappend header "Date: $date_header"
-        lappend header "User-Agent: Tclcloud lib"
+        lappend header "Date" $date_header
+        lappend header "User-Agent" "Tclcloud lib"
     } else {
         set signature [tclcloud::Encode_url [tclcloud::Sign_string [tclcloud::Build_string_to_sign $aws_address $querystring]]]
         set date_header [clock format [clock seconds] -gmt 1 -format "%a, %e %b %Y %H:%M:%S +0000"]
         set header ""
-        lappend header "Date: $date_header"
-        lappend header "User-Agent: Tclcloud lib"
+        lappend header "Date" $date_header
+        lappend header "User-Agent" "Tclcloud lib"
     }
     set url [tclcloud::Build_url $product $aws_address $querystring $signature $action $urlpath]
     set results [tclcloud::Perform_query $url $header $method $httpdata $contenttype $httptimeout]
