@@ -1,4 +1,4 @@
-TclCloud v1.0.3
+TclCloud v1.1
 
 ------------------------------------------
 Description 
@@ -130,8 +130,7 @@ tclcloud::call <product> <region> <action> <parameters> <api version>
 TODO
 ------------------------------------------
 
-	- add support for S3, Cloudfront, Route53, Import/Export
-	- certify Windows and Mac
+	- add support for Cloudfront, Import/Export
 	- incorporate XML results parser using tdom, to list and json
 	- more sample code
 	- add support for the OpenStack, Rackspace, vSphere, OpSource, etc. APIs
