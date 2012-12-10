@@ -30,6 +30,7 @@ namespace eval tclcloud {
     dict set AWS_address emr us-west-2 address elasticmapreduce.us-west-2.amazonaws.com
     dict set AWS_address emr eu-west-1 address elasticmapreduce.eu-west-1.amazonaws.com
     dict set AWS_address emr ap-southeast-1 address elasticmapreduce.ap-southeast-1.amazonaws.com
+    dict set AWS_address emr ap-southeast-2 address elasticmapreduce.ap-southeast-2.amazonaws.com
     dict set AWS_address emr ap-northeast-1 address elasticmapreduce.ap-northeast-1.amazonaws.com
     dict set AWS_address emr sa-east-1 address elasticmapreduce.sa-east-1.amazonaws.com
     dict set AWS_address s3 default address s3.amazonaws.com
@@ -38,6 +39,7 @@ namespace eval tclcloud {
     dict set AWS_address s3 us-west-2 address s3-us-west-2.amazonaws.com
     dict set AWS_address s3 eu-west-1 address s3-external-3.amazonaws.com
     dict set AWS_address s3 ap-southeast-1 address s3-ap-southeast-1.amazonaws.com
+    dict set AWS_address s3 ap-southeast-2 address s3-ap-southeast-2.amazonaws.com
     dict set AWS_address s3 ap-northeast-1 address s3-ap-northeast-1.amazonaws.com
     dict set AWS_address s3 sa-east-1 address s3-sa-east-1.amazonaws.com
     dict set AWS_address ses default address email.us-east-1.amazonaws.com
@@ -48,6 +50,7 @@ namespace eval tclcloud {
     dict set AWS_address rds us-west-2 address rds.us-west-2.amazonaws.com
     dict set AWS_address rds eu-west-1 address rds.eu-west-1.amazonaws.com
     dict set AWS_address rds ap-southeast-1 address rds.ap-southeast-1.amazonaws.com
+    dict set AWS_address rds ap-southeast-2 address rds.ap-southeast-2.amazonaws.com
     dict set AWS_address rds ap-northeast-1 address rds.ap-northeast-1.amazonaws.com
     dict set AWS_address rds sa-east-1 address rds.sa-east-1.amazonaws.com
     dict set AWS_address as default address autoscaling.amazonaws.com
@@ -56,6 +59,7 @@ namespace eval tclcloud {
     dict set AWS_address as us-west-2 address autoscaling.us-west-2.amazonaws.com
     dict set AWS_address as eu-west-1 address autoscaling.eu-west-1.amazonaws.com
     dict set AWS_address as ap-southeast-1 address autoscaling.ap-southeast-1.amazonaws.com
+    dict set AWS_address as ap-southeast-2 address autoscaling.ap-southeast-2.amazonaws.com
     dict set AWS_address as ap-northeast-1 address autoscaling.ap-northeast-1.amazonaws.com
     dict set AWS_address as sa-east-1 address autoscaling.sa-east-1.amazonaws.com
     dict set AWS_address sqs default address sqs.us-east-1.amazonaws.com
@@ -64,6 +68,7 @@ namespace eval tclcloud {
     dict set AWS_address sqs us-west-2 address sqs.us-west-2.amazonaws.com
     dict set AWS_address sqs eu-west-1 address sqs.eu-west-1.amazonaws.com
     dict set AWS_address sqs ap-southeast-1 address sqs.ap-southeast-1.amazonaws.com
+    dict set AWS_address sqs ap-southeast-2 address sqs.ap-southeast-2.amazonaws.com
     dict set AWS_address sqs ap-northeast-1 address sqs.ap-northeast-1.amazonaws.com
     dict set AWS_address sqs sa-east-1 address sqs.sa-east-1.amazonaws.com
     dict set AWS_address cw default address monitoring.us-east-1.amazonaws.com
@@ -72,6 +77,7 @@ namespace eval tclcloud {
     dict set AWS_address cw us-west-2 address monitoring.us-west-2.amazonaws.com
     dict set AWS_address cw eu-west-1 address monitoring.eu-west-1.amazonaws.com
     dict set AWS_address cw ap-southeast-1 address monitoring.ap-southeast-1.amazonaws.com
+    dict set AWS_address cw ap-southeast-2 address monitoring.ap-southeast-2.amazonaws.com
     dict set AWS_address cw ap-northeast-1 address monitoring.ap-northeast-1.amazonaws.com
     dict set AWS_address cw sa-east-1 address monitoring.sa-east-1.amazonaws.com
     dict set AWS_address elb default address elasticloadbalancing.amazonaws.com
@@ -80,6 +86,7 @@ namespace eval tclcloud {
     dict set AWS_address elb us-west-2 address elasticloadbalancing.us-west-2.amazonaws.com
     dict set AWS_address elb eu-west-1 address elasticloadbalancing.eu-west-1.amazonaws.com
     dict set AWS_address elb ap-southeast-1 address elasticloadbalancing.ap-southeast-1.amazonaws.com
+    dict set AWS_address elb ap-southeast-2 address elasticloadbalancing.ap-southeast-2.amazonaws.com
     dict set AWS_address elb ap-northeast-1 address elasticloadbalancing.ap-northeast-1.amazonaws.com
     dict set AWS_address elb sa-east-1 address elasticloadbalancing.sa-east-1.amazonaws.com
     dict set AWS_address vpc default address ec2.amazonaws.com
@@ -88,6 +95,7 @@ namespace eval tclcloud {
     dict set AWS_address vpc us-west-2 address ec2.us-west-2.amazonaws.com
     dict set AWS_address vpc eu-west-1 address ec2.eu-west-1.amazonaws.com
     dict set AWS_address vpc ap-southeast-1 address ec2.ap-southeast-1.amazonaws.com
+    dict set AWS_address vpc ap-southeast-2 address ec2.ap-southeast-2.amazonaws.com
     dict set AWS_address vpc ap-northeast-1 address ec2.ap-northeast-1.amazonaws.com
     dict set AWS_address vpc sa-east-1 address ec2.sa-east-1.amazonaws.com
     dict set AWS_address iam default address iam.amazonaws.com
@@ -97,6 +105,7 @@ namespace eval tclcloud {
     dict set AWS_address cfn us-west-2 address cloudformation.us-west-2.amazonaws.com
     dict set AWS_address cfn eu-west-1 address cloudformation.eu-west-1.amazonaws.com
     dict set AWS_address cfn ap-southeast-1 address cloudformation.ap-southeast-1.amazonaws.com
+    dict set AWS_address cfn ap-southeast-2 address cloudformation.ap-southeast-2.amazonaws.com
     dict set AWS_address cfn ap-northeast-1 address cloudformation.ap-northeast-1.amazonaws.com
     dict set AWS_address cfn sa-east-1 address cloudformation.sa-east-1.amazonaws.com
     dict set AWS_address sdb default address sdb.amazonaws.com
@@ -105,6 +114,7 @@ namespace eval tclcloud {
     dict set AWS_address sdb us-west-2 address sdb.us-west-2.amazonaws.com
     dict set AWS_address sdb eu-west-1 address sdb.eu-west-1.amazonaws.com
     dict set AWS_address sdb ap-southeast-1 address sdb.ap-southeast-1.amazonaws.com
+    dict set AWS_address sdb ap-southeast-2 address sdb.ap-southeast-2.amazonaws.com
     dict set AWS_address sdb ap-northeast-1 address sdb.ap-northeast-1.amazonaws.com
     dict set AWS_address sdb sa-east-1 address sdb.sa-east-1.amazonaws.com
     dict set AWS_address r53 default address r53.amazonaws.com
@@ -117,6 +127,7 @@ namespace eval tclcloud {
     dict set AWS_address sns eu-west-1 address sns.eu-west-1.amazonaws.com
     dict set AWS_address sns eu-west-1 address sns.eu-west-1.amazonaws.com
     dict set AWS_address sns ap-southeast-1 address sns.ap-southeast-1.amazonaws.com
+    dict set AWS_address sns ap-southeast-2 address sns.ap-southeast-2.amazonaws.com
     dict set AWS_address sns ap-northeast-1 address sns.ap-northeast-1.amazonaws.com
     dict set AWS_address sns sa-east-1 address sns.sa-east-1.amazonaws.com
     dict set AWS_address ec2 default address ec2.amazonaws.com
@@ -126,6 +137,7 @@ namespace eval tclcloud {
     dict set AWS_address ec2 eu-west-1 address ec2.eu-west-1.amazonaws.com
     dict set AWS_address ec2 eu-west-1 address ec2.eu-west-1.amazonaws.com
     dict set AWS_address ec2 ap-southeast-1 address ec2.ap-southeast-1.amazonaws.com
+    dict set AWS_address ec2 ap-southeast-2 address ec2.ap-southeast-2.amazonaws.com
     dict set AWS_address ec2 ap-northeast-1 address ec2.ap-northeast-1.amazonaws.com
     dict set AWS_address ec2 sa-east-1 address ec2.sa-east-1.amazonaws.com
     dict set AWS_product emr version default 2009-03-31
