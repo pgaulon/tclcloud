@@ -177,7 +177,11 @@ proc tclcloud::configure {provider key s_key {endpoint {}}} {
         set region [lindex $endpoint 0]
         set address [lindex $endpoint 1]
         set protocol [lindex $endpoint 2]
-        dict set AWS_address ec2 $region address $address
+        set product [lindex $endpoint 3]
+        if {"$product" eq ""} {
+            set product "ec2"
+        }
+        dict set AWS_address $product $region address $address
         if {"$protocol" ne ""} {
             if {"$protocol" ne "http" && "$protocol" ne "https"} {
                 error "error: protocol $protocol not supported. Must be either http or https"
