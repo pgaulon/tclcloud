@@ -141,7 +141,7 @@ namespace eval tclcloud {
     dict set AWS_address ec2 ap-northeast-1 address ec2.ap-northeast-1.amazonaws.com
     dict set AWS_address ec2 sa-east-1 address ec2.sa-east-1.amazonaws.com
     dict set AWS_product emr version default 2009-03-31
-    dict set AWS_product ec2 version default 2011-01-01
+    dict set AWS_product ec2 version default 2016-11-15
     dict set AWS_product sns version default 2010-03-31
     dict set AWS_product cfn version default 2010-05-15
     dict set AWS_product as version default 2010-08-01
